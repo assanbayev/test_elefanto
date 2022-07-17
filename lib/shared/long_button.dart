@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class RegisterButton extends StatefulWidget {
+class LongButton extends StatefulWidget {
   bool isLoading = false;
   final String text;
   final Color backgroundColor;
   AsyncCallback? asyncCallback;
   VoidCallback? voidCallback;
-  RegisterButton(
+  LongButton(
       {required this.text,
       required this.backgroundColor,
       this.asyncCallback,
@@ -15,18 +15,23 @@ class RegisterButton extends StatefulWidget {
       this.isLoading = false});
 
   @override
-  _RegisterButtonState createState() => _RegisterButtonState();
+  _LongButtonState createState() => _LongButtonState();
 }
 
-class _RegisterButtonState extends State<RegisterButton> {
+class _LongButtonState extends State<LongButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       width: double.infinity,
-      constraints: BoxConstraints(maxWidth: 300),
-      margin: const EdgeInsets.all(5),
+      constraints: const BoxConstraints(maxWidth: 300),
       child: TextButton(
-        style: TextButton.styleFrom(backgroundColor: widget.backgroundColor),
+        style: TextButton.styleFrom(
+            backgroundColor: widget.backgroundColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                side: BorderSide.none)),
         child: widget.isLoading
             ? const CircularProgressIndicator(
                 color: Colors.white,

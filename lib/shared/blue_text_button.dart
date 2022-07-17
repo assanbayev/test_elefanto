@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../font_consts/palette.dart';
 
 class BlueTextButton extends StatefulWidget {
   bool isUnderlined = false;
@@ -17,24 +18,22 @@ class BlueTextButton extends StatefulWidget {
 }
 
 class _BlueTextButtonState extends State<BlueTextButton> {
-  Color color = Color(0xFF00B7F4);
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Center(
-        child: TextButton(
-          style: TextButton.styleFrom(backgroundColor: Colors.white),
+        child: GestureDetector(
           child: Text(
             widget.text,
             style: TextStyle(
-              color: color,
-              decoration: widget.isUnderlined
-                  ? TextDecoration.underline
-                  : TextDecoration.none,
-            ),
+                color: Palette.myBlue,
+                decoration: widget.isUnderlined
+                    ? TextDecoration.underline
+                    : TextDecoration.none,
+                fontSize: 15),
           ),
-          onPressed: () {
+          onTap: () {
             if (widget.voidCallback != null) {
               widget.voidCallback!();
             } else if (widget.asyncCallback != null) {

@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:test_elefanto/font_consts/palette.dart';
+import 'package:test_elefanto/screens/sign_in/sign_in_register.dart';
 import 'package:test_elefanto/shared/blue_text_button.dart';
-import 'package:test_elefanto/shared/register_button.dart';
+import 'package:test_elefanto/shared/long_button.dart';
 import '../../consts.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -14,8 +16,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   PageController pageController = PageController();
-  Color dot_color = Color(0x33F24841);
-  Color dot_color_chosen = Color(0xFFF24841);
+
   int currentImage = 0;
   int imagesCount = welcome_images_expl.length;
   @override
@@ -25,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           children: [
             Flexible(
-              flex: 8,
+              flex: 11,
               child: PageView(
                 scrollBehavior: AppScrollBehavior(),
                 controller: pageController,
@@ -73,7 +74,8 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
           ),
           Container(
-            child: Text(text, textAlign: TextAlign.center),
+            child: Text(text,
+                style: TextStyle(fontSize: 22), textAlign: TextAlign.center),
           ),
         ],
       ),
@@ -87,14 +89,17 @@ class _WelcomePageState extends State<WelcomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (int i = 0; i < imagesCount; i++)
-              Container(
-                width: 5,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: i == currentDot ? dot_color_chosen : dot_color,
-                  borderRadius: BorderRadius.circular(2.5),
+              Opacity(
+                opacity: i == currentDot ? 1.0 : 0.2,
+                child: Container(
+                  width: 7,
+                  height: 7,
+                  decoration: BoxDecoration(
+                    color: Palette.myRed,
+                    borderRadius: BorderRadius.circular(3.5),
+                  ),
+                  margin: const EdgeInsets.all(4),
                 ),
-                margin: const EdgeInsets.all(2),
               )
           ],
         ),
@@ -120,14 +125,17 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Widget goToNextPage() {
     Color color = Color(0xFF00B7F4);
-    return RegisterButton(
+    return LongButton(
       text: 'Поехали',
       backgroundColor: color,
       voidCallback: onGoToNextPagePressed,
     );
   }
 
-  onGoToNextPagePressed() {}
+  onGoToNextPagePressed() {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const SignInAndRegister()));
+  }
 }
 
 //to make PageView scrollable on web
