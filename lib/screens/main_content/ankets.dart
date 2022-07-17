@@ -31,7 +31,18 @@ class _AnketsState extends State<Ankets> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(children: [
-            for (int i = 0; i < widget.anketNames.length; i++) anketa(i)
+            for (int i = 0; i < widget.anketNames.length; i++) ...[
+              anketa(i),
+              i != (widget.anketNames.length - 1)
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.02),
+                      child: const Divider(
+                        color: Palette.inputText,
+                        height: 1,
+                      ))
+                  : Container()
+            ]
           ]),
         ),
       ],
@@ -40,28 +51,18 @@ class _AnketsState extends State<Ankets> {
 
   Widget anketa(int index) {
     return Container(
+      // color: Colors.blue,
       margin: EdgeInsets.symmetric(
           horizontal: SizeConfig.screenWidth * 0.02,
           vertical: SizeConfig.screenWidth * 0.03),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.anketNames[index],
-                style:
-                    const TextStyle(fontSize: 17, color: Palette.default_black),
-              ),
-              anketaButton(index),
-            ],
+          Text(
+            widget.anketNames[index],
+            style: const TextStyle(fontSize: 17, color: Palette.default_black),
           ),
-          index != (widget.anketNames.length - 1)
-              ? const Divider(
-                  color: Palette.inputText,
-                  height: 1,
-                )
-              : Container()
+          anketaButton(index),
         ],
       ),
     );
